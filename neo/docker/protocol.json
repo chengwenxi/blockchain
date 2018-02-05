@@ -1,0 +1,24 @@
+{
+  "ProtocolConfiguration": {
+    "Magic": 1704630,
+    "AddressVersion": 23,
+    "StandbyValidators": [
+      "02deb80de54363eaf869ba2e2c87fc7d3e5b1a6cd0d52beb6da768a1dd59c07f14",
+      "03ab647ff365294c3af1100a4f6223b4dd702317bdb0def2913aacf5478f420b17",
+      "02bc62d266feee3ed5df0c2e51ff93ce3e69a03a95c5712eb8ec79469035a55270",
+      "02824e32df24010b98b6a74a0a2441e1398a2473ab3ac3053f06580349b658f5f3",
+    ],
+    "SeedList": [
+      "neo-cli1:10333",
+      "neo-cli2:10333",
+      "neo-cli3:10333",
+      "neo-cli5:10333"
+    ],
+    "SystemFee": {
+      "EnrollmentTransaction": 1000,
+      "IssueTransaction": 500,
+      "PublishTransaction": 500,
+      "RegisterTransaction": 10000
+    }
+  }
+}

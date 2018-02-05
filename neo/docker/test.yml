@@ -1,0 +1,18 @@
+version: '2'
+services:
+    neo-cli1:
+        image: neo-cli
+        ports:
+            - 10331:10333
+    neo-cli2:
+        image: neo-cli
+        ports:
+            - 10332:10333
+    neo-cli3:
+        image: neo-cli
+        ports:
+            - 10333:10333
+    neo-cli4:
+        image: neo-cli
+        ports:
+            - 10334:10333
