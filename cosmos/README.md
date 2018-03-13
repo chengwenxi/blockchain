@@ -14,6 +14,6 @@
 + gaia node 初始化
 + 配置文件详解
   + 文件结构
-  + priv_validator.json 和 genesis.json
-  + config.toml
+  + [priv_validator.json](config/priv_validator.json) 和 [genesis.json](config/genesis.json)
+  + [config.toml](config/config.toml)
 + gaia私有链运行及delegate演示
