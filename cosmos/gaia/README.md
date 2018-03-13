@@ -4,8 +4,8 @@ cosmos hub
 + [gaia简介](#gaia简介)
   + [gaia架构](#gaia架构)
   + [gaia功能](#gaia功能)
-    + [gaia client](#gaia client)
-    + [gaia node](#gaia node)
+    + [gaia client](#client)
+    + [gaia node](#node)
   + [gaia代码结构](#gaia代码结构)
   + [gaia更新](#gaia更新)
 
@@ -19,9 +19,9 @@ cosmos hub
 
 #### gaia功能
 
-#### gaia client
+##### client
 
-#### gaia node
+##### node
 
 #### gaia代码结构
 
