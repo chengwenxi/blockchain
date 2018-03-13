@@ -6,6 +6,7 @@ cosmos hub
   + [gaia功能](#gaia功能)
     + [gaia client](#client)
     + [gaia node](#node)
+    + [gaia rest-server](#rest-server)
   + [gaia代码结构](#gaia代码结构)
   + [gaia更新](#gaia更新)
 
@@ -23,18 +24,26 @@ cosmos hub
 
 ##### node
 
+#### rest-server
+
 #### gaia代码结构
+
+[https://github.com/cosmos/gaia]
 
 #### gaia更新
 
+gaia 依赖关系
 
-+ gaia github开发情况 https://github.com/cosmos/gaia
-+ gaia与cosmos-sdk,tendermint关系
-+ gaia功能点
-  + cosmos-sdk
-  + stake
-+ gaia3更新内容
-  + [tendermint 0.16](https://github.com/tendermint/tendermint/blob/master/CHANGELOG.md#0160-february-20th-2017)
+branch | version | cosmos-sdk | tendermint  
+- | :-: | -:
+master | 0.5.0 | develop | v0.15.0
+develop | 0.6.0| tm-develop | develop
+
++ [tendermint](https://github.com/tendermint/tendermint/blob/master/CHANGELOG.md#0160-february-20th-2017)
+
++ [cosmos-sdk](https://github.com/cosmos/cosmos-sdk/blob/master/CHANGELOG.md)
+
++ [gaia](https://github.com/cosmos/gaia/blob/master/CHANGELOG.md)
 
 ## gaia私链搭建及配置文件详解
 
