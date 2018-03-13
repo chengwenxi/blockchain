@@ -2,6 +2,7 @@
 
 ## gaia简介
 + gaia与cosmos-sdk,tendermint关系
++ gaia功能点
 + gaia3更新内容
 
 ## gaia私链搭建及配置文件详解
