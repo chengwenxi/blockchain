@@ -32,6 +32,8 @@ cosmos hub
 
 #### gaia更新
 
+[cosmos roadmap](https://cosmos.network/roadmap)
+
 gaia 依赖关系
 
 | branch  | version | cosmos-sdk | tendermint |  
@@ -39,6 +41,8 @@ gaia 依赖关系
 | master  | 0.5.0   | develop    | v0.15.0    |
 | develop | 0.6.0   | tm-develop | develop    |
 
+
+CHANGELOG
 + [tendermint](https://github.com/tendermint/tendermint/blob/master/CHANGELOG.md#0160-february-20th-2017)
 
 + [cosmos-sdk](https://github.com/cosmos/cosmos-sdk/blob/master/CHANGELOG.md)
