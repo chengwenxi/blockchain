@@ -13,6 +13,7 @@ cosmos hub
 + [gaia私链搭建及配置详解](#gaia私链搭建及配置文件详解)
   + [私链搭建](#gaia私链搭建)
   + [配置详解](#配置文件详解)
+  + [功能演示](#功能演示)
 
 
 ## gaia简介
@@ -53,9 +54,12 @@ CHANGELOG
 
 #### gaia私链搭建
   + [安装及私链搭建](Local-Test)
-  + gaia delegate演示
+
 
 #### 配置文件详解
   + 文件结构
   + [priv_validator.json](config/priv_validator.json) 和 [genesis.json](config/genesis.json)
   + [config.toml](config/config.toml)
+
+#### 功能演示
+  + gaia delegate演示
