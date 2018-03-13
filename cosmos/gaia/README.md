@@ -1,7 +1,8 @@
-# gaia——cosmos hub
+# [gaia](https://github.com/cosmos/gaia)
+cosmos hub
 
 ## gaia简介
-+ gaia github开发情况
++ gaia github开发情况 https://github.com/cosmos/gaia
 + gaia与cosmos-sdk,tendermint关系
 + gaia功能点
   + cosmos-sdk
