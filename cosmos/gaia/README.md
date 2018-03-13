@@ -28,7 +28,7 @@ cosmos hub
 
 #### gaia代码结构
 
-[https://github.com/cosmos/gaia]
+https://github.com/cosmos/gaia
 
 #### gaia更新
 
