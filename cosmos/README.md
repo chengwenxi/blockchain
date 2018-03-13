@@ -10,6 +10,7 @@
   + tendermint 0.16
 
 ## gaia私链搭建及配置文件详解
+[安装部署文档](Local-Test)
 + gaia client 功能及使用
 + gaia node 初始化
 + 配置文件详解
