@@ -34,10 +34,10 @@ cosmos hub
 
 gaia 依赖关系
 
-branch | version | cosmos-sdk | tendermint  
-- | :-: | -:
-master | 0.5.0 | develop | v0.15.0
-develop | 0.6.0| tm-develop | develop
+| branch  | version | cosmos-sdk | tendermint |  
+| ------- |:-------:| -----:     | -----:     |          
+| master  | 0.5.0   | develop    | v0.15.0    |
+| develop | 0.6.0   | tm-develop | develop    |
 
 + [tendermint](https://github.com/tendermint/tendermint/blob/master/CHANGELOG.md#0160-february-20th-2017)
 
