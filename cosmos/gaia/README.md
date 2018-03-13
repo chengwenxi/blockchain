@@ -8,7 +8,7 @@ cosmos hub
   + cosmos-sdk
   + stake
 + gaia3更新内容
-  + tendermint 0.16
+  + [tendermint 0.16](https://github.com/tendermint/tendermint/blob/master/CHANGELOG.md#0160-february-20th-2017)
 
 ## gaia私链搭建及配置文件详解
 [安装部署文档](Local-Test)
