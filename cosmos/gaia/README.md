@@ -1,7 +1,8 @@
-# [gaia](https://github.com/cosmos/gaia)
-cosmos hub
+# gaia
+A demonstration of the Cosmos-Hub with basic staking functionality.
 
 + [gaia简介](#gaia简介)
+  + [gaia是什么](#gaia是什么)
   + [gaia架构](#gaia架构)
   + [gaia功能](#gaia功能)
     + [gaia client](#client)
@@ -17,9 +18,19 @@ cosmos hub
 
 
 ## gaia简介
+
+## gaia是什么
+  + gaia是cosmos一个project——具有基本的staking功能的Cosmos-Hub的示范。    https://github.com/cosmos/gaia
+
+  + gaia也是cosmos-hub目前的测试网络使用名，官方发布过两个测试网络gaia1和gaia2。
+
 #### gaia架构
 
 #### gaia功能
+  + 功能架构
+  ![](./source/功能架构.png =100x100)
+  + 运行时状态
+  ![](./source/运行时状态.png =100x100)
 
 ##### client
 
