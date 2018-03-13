@@ -28,9 +28,10 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
 
 #### gaia功能
   + 功能架构
-  ![img](./source/功能架构.png =100x100)
+  ![img](./source/gaia架构.png)
+
   + 运行时状态
-  ![img](./source/运行时状态.png =100x100)
+  ![img](./source/运行时状态.png)
 
 ##### client
 
