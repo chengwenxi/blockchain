@@ -1,7 +1,7 @@
 # [gaia](https://github.com/cosmos/gaia)
 cosmos hub
 
-+ [gaia简介](./gaia#gaia简介)
++ [gaia简介](../gaia#gaia简介)
   + [gaia架构](gaia#gaia架构)
   + [gaia功能](gaia#gaia功能)
     + [gaia client](gaia#gaia client)
