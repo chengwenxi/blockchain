@@ -106,4 +106,4 @@ CHANGELOG
   + [config.toml](config/config.toml)
 
 #### 功能演示
-  + gaia delegate演示
+  + gaia stake演示
