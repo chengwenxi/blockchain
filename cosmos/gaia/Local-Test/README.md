@@ -80,6 +80,18 @@ Now we can initialize a client for the first node, and look up our account:
 gaia client init --chain-id=test --node=tcp://localhost:46657
 gaia client query account $MYADDR
 ```
+Notice it's empty! now, we can send tx to another account:
+```
+MYNAME1=<your name>
+gaia client keys new $MYNAME1
+gaia client keys list
+MYADDR1=<your newly generated address>
+gaia client tx send --amount=1000fermion --to=$MYADDR1 --name=MYNAME
+gaia client query $MYADDR1
+gaia client query $MYADDR
+```
+
+
 
 Nice. We can also lookup the candidate/validator set:
 
@@ -107,8 +119,26 @@ If you have a json parser like `jq`, you can get just the pubkey:
 cat $HOME/.gaia2/config/priv_validator.json | jq .pub_key.data
 ```
 
-Now we can delegate some coins to that pubkey:
+Now we can create new validator-candidate account and delegate some coins to it
+```
+gaia client tx declare-candidacy --amount=10fermion --pubkey=<validator pubkey> --moniker=<moniker> --name=$MYNAME
+```
 
+we can query candidates set
+```
+gaia client query candidates
+```
+or query a validator-candidate account
+```
+gaia client query candidate --pubkey=<validator pubkey>
+```
+
+then we can delegate some coins to this pubkey
+
+```
+gaia client tx delegate --amount=10fermion --name=$MYNAME --pubkey=<validator pubkey>
+```
+or unbond it
 ```
 gaia client tx delegate --amount=10fermion --name=$MYNAME --pubkey=<validator pubkey>
 ```
