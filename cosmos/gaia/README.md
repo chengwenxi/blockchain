@@ -28,6 +28,7 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
 
   ![img](./source/gaia架构.png)
 
+
   + ABCI实现方式：
    + local&nbsp;&nbsp;&nbsp;&nbsp;本地方法调用
    + grpc&nbsp;&nbsp;&nbsp;&nbsp;http2长链接&nbsp;&nbsp;&nbsp;&nbsp;grpc序列化
