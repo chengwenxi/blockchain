@@ -86,7 +86,7 @@ MYNAME1=<your name>
 gaia client keys new $MYNAME1
 gaia client keys list
 MYADDR1=<your newly generated address>
-gaia client tx send --amount=1000fermion --to=$MYADDR1 --name=MYNAME
+gaia client tx send --amount=1000fermion --to=$MYADDR1 --name=$MYNAME
 gaia client query $MYADDR1
 gaia client query $MYADDR
 ```
