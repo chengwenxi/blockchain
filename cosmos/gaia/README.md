@@ -52,6 +52,7 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
       + candidate: Query a validator-candidate account
       + delegator-candidates: Query all delegators candidates' pubkeys based on address
       + delegator-bond: Query a delegators bond based on address and candidate pubkey
+    ![img](./source/account.png)
 
 
 ### gaia命令

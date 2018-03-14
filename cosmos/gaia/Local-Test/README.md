@@ -121,7 +121,7 @@ cat $HOME/.gaia1/config/priv_validator.json | jq .pub_key.data
 
 Now we can create new validator-candidate account and delegate some coins to it
 ```
-gaia client tx declare-candidacy --amount=10fermion --pubkey=<validator pubkey> --moniker=<moniker> --name=$MYNAME
+gaia client tx declare-candidacy --amount=1fermion --pubkey=<validator pubkey> --moniker=<moniker> --name=$MYNAME
 ```
 
 we can query candidates set
@@ -132,15 +132,19 @@ or query a validator-candidate account
 ```
 gaia client query candidate --pubkey=<validator pubkey>
 ```
+or edit candidacy
+```
+gaia client tx edit-candidacy --pubkey=<validator pubkey> --moniker=<new moniker> --name=$MYNAME
+```
 
 then we can delegate some coins to this pubkey
 
 ```
-gaia client tx delegate --amount=10fermion --name=$MYNAME --pubkey=<validator pubkey>
+gaia client tx delegate --amount=1fermion --pubkey=<validator pubkey> --name=$MYNAME
 ```
 or unbond it
 ```
-gaia client tx delegate --amount=10fermion --name=$MYNAME --pubkey=<validator pubkey>
+gaia client tx unbond --shares=1 --pubkey=<validator pubkey> --name=$MYNAME
 ```
 
 We should see our account balance decrement, and the pubkey get added to the app's list of bonds:
@@ -156,16 +160,8 @@ To confirm for certain the new validator is active, check tendermint:
 curl localhost:46657/validators
 ```
 
+
+Then let's add another validator-candidate with `$HOME/.gaia2/config/priv_validator.json`
+
 If you now kill your second node, blocks will stop streaming in, because there aren't enough validators online.
 Turn her back on and they will start streaming again.
-
-Finally, to relinquish all your power, unbond some coins. You should see your
-VotingPower reduce and your account balance increase.
-
-```
-gaia client tx unbond --amount=10fermion --name=$MYNAME
-gaia client query validators
-gaia client query account $MYADDR
-```
-
-Once you unbond enough, you will no longer be needed to make new blocks.
