@@ -107,16 +107,16 @@ tendermint itself thinks the validator set is, use:
 curl localhost:46657/validators
 ```
 
-Ok, let's add the second node as a validator. First, we need the pubkey data:
+Ok, let's add a validator-candidate. First, we need the pubkey data:
 
 ```
-cat $HOME/.gaia2/config/priv_validator.json
+cat $HOME/.gaia1/config/priv_validator.json
 ```
 
 If you have a json parser like `jq`, you can get just the pubkey:
 
 ```
-cat $HOME/.gaia2/config/priv_validator.json | jq .pub_key.data
+cat $HOME/.gaia1/config/priv_validator.json | jq .pub_key.data
 ```
 
 Now we can create new validator-candidate account and delegate some coins to it
