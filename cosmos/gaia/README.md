@@ -42,11 +42,17 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
 ### gaia功能
   + cosmos-sdk功能
   + gaia功能
-    + stake
-      + declareCandidacy
-      + editCandidacy
-      + delegate
-      + unbond
+    + stake tx
+      + declare-candidacy: create new validator-candidate account and delegate some coins to it
+      + edit-candidacy: edit and existing validator-candidate account
+      + delegate: delegate coins to an existing validator/candidate
+      + unbond: unbond coins from a validator/candidate
+    + stake query
+      + candidates: Query for the set of validator-candidates pubkeys
+      + candidate: Query a validator-candidate account
+      + delegator-candidates: Query all delegators candidates' pubkeys based on address
+      + delegator-bond: Query a delegators bond based on address and candidate pubkey
+
 
 ### gaia命令
 
