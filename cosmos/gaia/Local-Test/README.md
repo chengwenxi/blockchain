@@ -80,7 +80,7 @@ Now we can initialize a client for the first node, and look up our account:
 gaia client init --chain-id=test --node=tcp://localhost:46657
 gaia client query account $MYADDR
 ```
-Notice it's empty! now, we can send tx to another account:
+Nice. we can send tx to another account:
 ```
 MYNAME1=<your name>
 gaia client keys new $MYNAME1
@@ -93,7 +93,7 @@ gaia client query $MYADDR
 
 
 
-Nice. We can also lookup the candidate/validator set:
+We can also lookup the candidate/validator set:
 
 ```
 gaia client query candidates
