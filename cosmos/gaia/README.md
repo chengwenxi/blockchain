@@ -37,7 +37,7 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
 
    https://github.com/tendermint/abci/tree/master/client
 
-  + 运行时状态
+#### 运行时状态
 
   ![img](./source/运行时状态.png)
 
