@@ -5,9 +5,8 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
   + [gaia是什么](#gaia是什么)
   + [gaia架构](#gaia架构)
   + [gaia功能](#gaia功能)
-    + [gaia client](#client)
-    + [gaia node](#node)
-    + [gaia rest-server](#rest-server)
+    + [cosmos-sdk](#cosmos-sdk功能)
+    + [gaia](#gaia功能)
   + [gaia代码结构](#gaia代码结构)
   + [gaia更新](#gaia更新)
 
@@ -19,31 +18,54 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
 
 ## gaia简介
 
-## gaia是什么
-  + gaia是cosmos一个project——具有基本的staking功能的Cosmos-Hub的示范。    https://github.com/cosmos/gaia
+### gaia是什么
+  + gaia是cosmos一个project——具有基本的staking功能的Cosmos-Hub的范例。    https://github.com/cosmos/gaia
 
   + gaia也是cosmos-hub目前的测试网络使用名，官方发布过两个测试网络gaia1和gaia2。
 
-#### gaia架构
-
-#### gaia功能
-  + 功能架构
+### gaia架构
+  + 系统架构
 
   ![img](./source/gaia架构.png)
 
+  + ABCI实现方式：
+   + local&nbsp;&nbsp;&nbsp;&nbsp;本地方法调用
+   + grpc&nbsp;&nbsp;&nbsp;&nbsp;http2长链接&nbsp;&nbsp;&nbsp;&nbsp;grpc序列化
+   + socket&nbsp;&nbsp;&nbsp;&nbsp;tcp常连接 &nbsp;&nbsp;&nbsp;&nbsp;go rpc序列化
+
   + 运行时状态
-  
+
   ![img](./source/运行时状态.png)
 
-##### client
+### gaia功能
+  + cosmos-sdk功能
+  + gaia功能
+    + stake
+      + declareCandidacy
+      + editCandidacy
+      + delegate
+      + unbond
+
+### gaia命令
 
 ##### node
+The Cosmos Network delegation-game blockchain test
+
+##### client
+Gaia light client
 
 #### rest-server
+REST client for gaia commands
 
 #### gaia代码结构
 
 https://github.com/cosmos/gaia
+
+| testnet | gaia version |
+| -----   |:-----------: |
+| gaia1   | v0.2.0       |
+| gaia2   | v0.5.0       |
+| now     | v0.6.0       |
 
 #### gaia更新
 
