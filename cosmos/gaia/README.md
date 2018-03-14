@@ -24,12 +24,13 @@ A demonstration of the Cosmos-Hub with basic staking functionality.
   + gaia也是cosmos-hub目前的测试网络使用名，官方发布过两个测试网络gaia1和gaia2。
 
 ### gaia架构
-  + 系统架构
+
+#### 系统架构
 
   ![img](./source/gaia架构.png)
 
 
-  + ABCI实现方式：
+#### ABCI实现方式：
    + local&nbsp;&nbsp;&nbsp;&nbsp;本地方法调用
    + grpc&nbsp;&nbsp;&nbsp;&nbsp;http2长链接&nbsp;&nbsp;&nbsp;&nbsp;grpc序列化
    + socket&nbsp;&nbsp;&nbsp;&nbsp;tcp常连接 &nbsp;&nbsp;&nbsp;&nbsp;go rpc序列化
