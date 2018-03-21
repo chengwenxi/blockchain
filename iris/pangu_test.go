@@ -9,7 +9,6 @@ import (
 )
 
 const (
-	number = 100
 	prefix = "test"
 	pass   = "1234567890"
 	pass1  = "1111111111"
@@ -66,10 +65,12 @@ func AccountList() map[string]string {
 			continue
 		} else {
 			l := strings.Split(v, "\t\t")
-			if len(l) > 1 && strings.Index(l[0], "test") != -1 {
+			if len(l) > 1 && strings.Index(l[0], prefix) != -1 {
 				kv[l[0]] = l[1]
 			}
 		}
 	}
 	return kv
 }
+
+

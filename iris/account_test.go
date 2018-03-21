@@ -9,6 +9,11 @@ import (
 )
 
 func Test_NewAccount(t *testing.T) {
+	var (
+		number = 100
+		prefix = "test"
+		pass   = "1234567890"
+	)
 	for i := 0; i < number; i++ {
 		c := exec.Command("iris", "client", "keys", "new", prefix+strconv.Itoa(i), "--password="+pass)
 		var out bytes.Buffer
