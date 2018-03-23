@@ -10,7 +10,7 @@ import (
 
 func Test_NewAccount(t *testing.T) {
 	var (
-		number = 100
+		number = 1000
 		prefix = "test"
 		pass   = "1234567890"
 	)

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"bytes"
 	"strings"
+	"time"
 )
 
 const (
@@ -18,39 +19,49 @@ var ch = make(chan int)
 
 func Test_tx(t *testing.T) {
 
-	kv := AccountList()
-	fmt.Print(len(kv))
-	//for k, v := range kv {
-	//	go SendTx(k, v)
-	//}
-	//for i := 0; i < len(kv); i++ {
-	//	<-ch
-	//}
+	//SendTx()
+
+	allList := AccountList()
+	for i := 0; i < 100; i++ {
+		go resend(allList[10*i:10*(i+1)])
+	}
+	for i := 0; i < 100; i++ {
+		<-ch
+	}
 }
 
-func SendTx(name string, addr string) {
-	c := exec.Command("iris", "client", "tx", "send", "--to "+addr,
-		"--amount 100iris", "--name init1", "--password="+pass1)
-	var out bytes.Buffer
-	c.Stdout = &out
-	if err := c.Run(); err != nil {
-		fmt.Println("Error: ", err)
-	}
-	fmt.Printf("%s", out.String())
-	for i := 0; i < 100; i++ {
-		c1 := exec.Command("iris", "client", "tx", "send", "--to CAF62CF4258BB500D91C775106AD6419986B2A94",
-			"--amount 1iris", "--name"+name, "--password="+pass)
-		var out1 bytes.Buffer
-		c1.Stdout = &out1
+func SendTx() {
+	kv := AccountMap()
+	fmt.Print(len(kv))
+	for _, v := range kv {
+		c := exec.Command("iris", "client", "tx", "send", "--to="+v,
+			"--amount=10000iris", "--name=init1", "--password="+pass1)
+		var out bytes.Buffer
+		c.Stdout = &out
 		if err := c.Run(); err != nil {
 			fmt.Println("Error: ", err)
 		}
-		fmt.Printf("%s", out1.String())
+		fmt.Printf("%s", out.String())
+		time.Sleep(5 * time.Second)
+	}
+}
+
+func resend(list []string) {
+	for _, l := range list {
+		c := exec.Command("iris", "client", "tx", "send", "--to=CAF62CF4258BB500D91C775106AD6419986B2A94",
+			"--amount=1iris", "--name="+l, "--password="+pass)
+		var out bytes.Buffer
+		c.Stdout = &out
+		if err := c.Run(); err != nil {
+			fmt.Println("Error: ", err)
+		}
+		fmt.Printf("%s", out.String())
+		//time.Sleep(1 * time.Second)
 	}
 	ch <- 0
 }
 
-func AccountList() map[string]string {
+func AccountMap() map[string]string {
 	c := exec.Command("iris", "client", "keys", "list")
 	var out bytes.Buffer
 	c.Stdout = &out
@@ -73,4 +84,25 @@ func AccountList() map[string]string {
 	return kv
 }
 
-
+func AccountList() []string {
+	c := exec.Command("iris", "client", "keys", "list")
+	var out bytes.Buffer
+	c.Stdout = &out
+	if err := c.Run(); err != nil {
+		fmt.Println("Error: ", err)
+	}
+	result := out.String()
+	s := strings.Split(result, "\n")
+	var list []string
+	for i, v := range s {
+		if i == 0 {
+			continue
+		} else {
+			l := strings.Split(v, "\t\t")
+			if len(l) > 1 && strings.Index(l[0], prefix) != -1 {
+				list = append(list, l[0])
+			}
+		}
+	}
+	return list
+}
