@@ -7,6 +7,7 @@ import (
 	"bytes"
 	"strings"
 	"time"
+	"container/list"
 )
 
 const (
@@ -16,18 +17,21 @@ const (
 )
 
 var ch = make(chan int)
+var l *list.List
 
 func Test_tx(t *testing.T) {
 
 	//SendTx()
-
-	allList := AccountList()
-	for i := 0; i < 100; i++ {
-		go resend(allList[10*i:10*(i+1)])
+	println("start")
+	l = AccountList()
+	println(l.Len())
+	for i := 0; i < 300; i++ {
+		go resend()
 	}
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 300; i++ {
 		<-ch
 	}
+	println("end")
 }
 
 func SendTx() {
@@ -46,16 +50,19 @@ func SendTx() {
 	}
 }
 
-func resend(list []string) {
-	for _, l := range list {
+func resend() {
+	i1 := l.Front()
+	if i1!=nil{
+		l.Remove(i1)
 		c := exec.Command("iris", "client", "tx", "send", "--to=CAF62CF4258BB500D91C775106AD6419986B2A94",
-			"--amount=1iris", "--name="+l, "--password="+pass)
+			"--amount=1iris", "--name="+i1.Value.(string), "--password="+pass)
 		var out bytes.Buffer
 		c.Stdout = &out
 		if err := c.Run(); err != nil {
 			fmt.Println("Error: ", err)
 		}
-		fmt.Printf("%s", out.String())
+		//fmt.Printf("%s", out.String())
+		resend()
 		//time.Sleep(1 * time.Second)
 	}
 	ch <- 0
@@ -84,7 +91,7 @@ func AccountMap() map[string]string {
 	return kv
 }
 
-func AccountList() []string {
+func AccountList() *list.List{
 	c := exec.Command("iris", "client", "keys", "list")
 	var out bytes.Buffer
 	c.Stdout = &out
@@ -93,16 +100,17 @@ func AccountList() []string {
 	}
 	result := out.String()
 	s := strings.Split(result, "\n")
-	var list []string
+	accounts := list.New()
 	for i, v := range s {
 		if i == 0 {
 			continue
 		} else {
 			l := strings.Split(v, "\t\t")
 			if len(l) > 1 && strings.Index(l[0], prefix) != -1 {
-				list = append(list, l[0])
+				accounts.PushBack(l[0])
+
 			}
 		}
 	}
-	return list
+	return accounts
 }
