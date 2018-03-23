@@ -77,8 +77,8 @@ func getName() string {
 	name := ""
 	if i1 != nil {
 		name = i1.Value.(string)
+		l.Remove(i1)
 	}
-	l.Remove(i1)
 	return name
 }
 
