@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 	"container/list"
+	"sync"
 )
 
 const (
@@ -18,6 +19,7 @@ const (
 
 var ch = make(chan int)
 var l *list.List
+var lock sync.Mutex
 
 func Test_tx(t *testing.T) {
 
@@ -51,11 +53,10 @@ func SendTx() {
 }
 
 func resend() {
-	i1 := l.Front()
-	if i1!=nil{
-		l.Remove(i1)
+	name := getName()
+	if name != "" {
 		c := exec.Command("iris", "client", "tx", "send", "--to=CAF62CF4258BB500D91C775106AD6419986B2A94",
-			"--amount=1iris", "--name="+i1.Value.(string), "--password="+pass)
+			"--amount=1iris", "--name="+name, "--password="+pass)
 		var out bytes.Buffer
 		c.Stdout = &out
 		if err := c.Run(); err != nil {
@@ -66,6 +67,19 @@ func resend() {
 		//time.Sleep(1 * time.Second)
 	}
 	ch <- 0
+}
+
+func getName() string {
+	defer lock.Unlock()
+	lock.Lock()
+	//i1 := l.Front()
+	i1 := l.Back()
+	name := ""
+	if i1 != nil {
+		name = i1.Value.(string)
+	}
+	l.Remove(i1)
+	return name
 }
 
 func AccountMap() map[string]string {
@@ -91,7 +105,7 @@ func AccountMap() map[string]string {
 	return kv
 }
 
-func AccountList() *list.List{
+func AccountList() *list.List {
 	c := exec.Command("iris", "client", "keys", "list")
 	var out bytes.Buffer
 	c.Stdout = &out
@@ -108,7 +122,6 @@ func AccountList() *list.List{
 			l := strings.Split(v, "\t\t")
 			if len(l) > 1 && strings.Index(l[0], prefix) != -1 {
 				accounts.PushBack(l[0])
-
 			}
 		}
 	}
