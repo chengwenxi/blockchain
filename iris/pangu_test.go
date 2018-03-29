@@ -9,47 +9,58 @@ import (
 	"time"
 	"container/list"
 	"sync"
+	"strconv"
 )
 
 const (
 	prefix = "test"
 	pass   = "1234567890"
-	pass1  = "1111111111"
 )
 
 var ch = make(chan int)
+var sendCh = make(chan int)
 var l *list.List
 var lock sync.Mutex
 
 func Test_tx(t *testing.T) {
 
-	//SendTx()
-	println("start")
-	l = AccountList()
-	println(l.Len())
-	for i := 0; i < 300; i++ {
-		go resend()
+	//send to test account
+	for i := 0; i < 5; i++ {
+		go SendTx(i,5)
 	}
-	for i := 0; i < 300; i++ {
-		<-ch
+	for i := 0; i < 5; i++ {
+		<-sendCh
 	}
-	println("end")
+
+	// resend to init1
+	//println("start")
+	//l = AccountList()
+	//println(l.Len())
+	//for i := 0; i < 300; i++ {
+	//	go resend()
+	//}
+	//for i := 0; i < 300; i++ {
+	//	<-ch
+	//}
+	//println("end")
 }
 
-func SendTx() {
+func SendTx(i int,gos int) {
 	kv := AccountMap()
-	fmt.Print(len(kv))
-	for _, v := range kv {
-		c := exec.Command("iris", "client", "tx", "send", "--to="+v,
-			"--amount=10000iris", "--name=init1", "--password="+pass1)
+	number := int(5000/gos)
+	for j := 0; j < number; j++ {
+		c := exec.Command("iris", "client", "tx", "send", "--to="+kv["test"+strconv.Itoa(3000+number*i+j)],
+			"--amount=10000iris", "--name="+"cwx"+strconv.Itoa(i+1), "--password="+pass)
 		var out bytes.Buffer
 		c.Stdout = &out
+		println(strconv.Itoa(3000+number*i+j))
 		if err := c.Run(); err != nil {
 			fmt.Println("Error: ", err)
 		}
 		fmt.Printf("%s", out.String())
 		time.Sleep(5 * time.Second)
 	}
+	sendCh <- 0
 }
 
 func resend() {
@@ -97,6 +108,9 @@ func AccountMap() map[string]string {
 			continue
 		} else {
 			l := strings.Split(v, "\t\t")
+			if len(l) < 2 {
+				l = strings.Split(v, "\t")
+			}
 			if len(l) > 1 && strings.Index(l[0], prefix) != -1 {
 				kv[l[0]] = l[1]
 			}
