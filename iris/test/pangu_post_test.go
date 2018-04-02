@@ -1,4 +1,4 @@
-package post
+package test
 
 import (
 	"testing"
@@ -10,17 +10,20 @@ import (
 	"container/list"
 	"sync"
 	"time"
+	"math/rand"
 )
 
 var TO = "CAF62CF4258BB500D91C775106AD6419986B2A94"
 var PASSWORD = "1234567890"
 var SERVER = "http://116.62.62.39:1198"
+var SERVERPOST = []string{"http://116.62.62.39:1198","http://116.62.62.39:1298","http://116.62.62.39:1398","http://116.62.62.39:1498"}
 var ch = make(chan int)
 var signCh = make(chan int)
 var l = list.New()
 var lock sync.Mutex
 
 var goNum = 200
+
 
 
 func Test_PostTx(t *testing.T) {
@@ -57,7 +60,7 @@ func postTx()  {
 		ch <-0
 		return
 	}
-	_ = DoPost(SERVER+"/tx", data)
+	_ = DoPost(SERVERPOST[rand.Intn(3)]+"/tx", data)
 	//println(string(result))
 	postTx()
 }
@@ -124,50 +127,7 @@ func buildAndSignTx(name string, addr string) {
 	//send tx
 }
 
-type Key struct {
-	Name    string
-	Address string
-}
 
-type Nonce struct {
-	Height uint32
-	Data   uint32
-}
-
-type Actor struct {
-	ChainID string `json:"chain"` // this is empty unless it comes from a different chain
-	App     string `json:"app"`   // the app that the actor belongs to
-	Address string `json:"addr"`  // arbitrary app-specific unique id
-}
-
-type Coin struct {
-	Denom  string `json:"denom"`
-	Amount int64  `json:"amount"`
-}
-
-type Coins []Coin
-
-type RequestSign struct {
-	Name     string `json:"name,omitempty" validate:"required,min=3,printascii"`
-	Password string `json:"password,omitempty" validate:"required,min=10"`
-
-	Tx map[string]interface{} `json:"tx" validate:"required"`
-}
-
-type SendInput struct {
-	Fees     *Coin  `json:"fees"`
-	Multi    bool   `json:"multi,omitempty"`
-	Sequence uint32 `json:"sequence"`
-
-	To     *Actor `json:"to"`
-	From   *Actor `json:"from"`
-	Amount Coins  `json:"amount"`
-}
-
-type Result struct {
-	Code  uint32
-	Error string
-}
 
 func DoGet(url string) []byte {
 	resp, err := http.Get(url)
