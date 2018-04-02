@@ -21,6 +21,7 @@ var signCh = make(chan int)
 var l = list.New()
 var lock sync.Mutex
 var goNum = 200
+var goGetNum = 1000
 var minPostTime = int64(0)
 var maxPostTime = int64(0)
 var successNum = int64(0)
@@ -28,11 +29,11 @@ var totalTime = int64(0)
 
 func Test_PostTx(t *testing.T) {
 	keys := getKeys()
-	for i := 0; i < goNum; i++ {
-		j := len(keys) / goNum
+	for i := 0; i < goGetNum; i++ {
+		j := len(keys) / goGetNum
 		go buildAndSignTxAll(keys, j*i, j)
 	}
-	for i := 0; i < goNum; i++ {
+	for i := 0; i < goGetNum; i++ {
 		<-signCh
 	}
 	println("sign end, number = ", l.Len())
