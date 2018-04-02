@@ -1,4 +1,4 @@
-package test
+package genesis
 
 import (
 	"testing"
@@ -10,7 +10,7 @@ import (
 
 func Test_NewAccount(t *testing.T) {
 	var (
-		number = 5000
+		number = 50000
 		prefix = "test"
 		pass   = "1234567890"
 	)

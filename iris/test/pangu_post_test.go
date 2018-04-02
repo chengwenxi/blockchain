@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"github.com/chengwenxi/blockchain/iris/test/types"
 	"github.com/chengwenxi/blockchain/iris/test/common"
+	"fmt"
 )
 
 var TO = "CAF62CF4258BB500D91C775106AD6419986B2A94"
@@ -20,6 +21,10 @@ var signCh = make(chan int)
 var l = list.New()
 var lock sync.Mutex
 var goNum = 200
+var minPostTime = int64(0)
+var maxPostTime = int64(0)
+var successNum = int64(0)
+var totalTime = int64(0)
 
 func Test_PostTx(t *testing.T) {
 	keys := getKeys()
@@ -31,15 +36,17 @@ func Test_PostTx(t *testing.T) {
 		<-signCh
 	}
 	println("sign end, number = ", l.Len())
-	startTime := time.Now().Unix()
 	for i := 0; i < goNum; i++ {
 		go postTx()
 	}
 	for i := 0; i < goNum; i++ {
 		<-ch
 	}
-	endTime := time.Now().Unix()
-	println(endTime - startTime)
+	fmt.Printf("successNum   %d/n",successNum)
+	fmt.Printf("minPostTime   %d/n",minPostTime)
+	fmt.Printf("maxPostTime   %d/n",maxPostTime)
+	fmt.Printf("avgPostTime   %d/n",totalTime/successNum)
+
 }
 
 func buildAndSignTxAll(keys []types.Key, start int, number int) {
@@ -55,7 +62,21 @@ func postTx() {
 		ch <- 0
 		return
 	}
-	_ = common.DoPost(SERVERPOST[rand.Intn(3)]+"/tx", data)
+	startTime := time.Now().Unix()
+	body := common.DoPost(SERVERPOST[rand.Intn(3)]+"/tx", data)
+	if body == nil {
+		postTx()
+	}
+	endTime := time.Now().Unix()
+	postTime := endTime - startTime
+	totalTime = + postTime
+	if postTime < minPostTime {
+		minPostTime = postTime
+	}
+	if postTime > maxPostTime {
+		minPostTime = postTime
+	}
+	successNum++
 	//println(string(result))
 	postTx()
 }

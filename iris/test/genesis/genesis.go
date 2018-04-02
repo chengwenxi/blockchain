@@ -1,18 +1,16 @@
-package test
+package genesis
 
 import (
-	"testing"
-	"io/ioutil"
-	"encoding/json"
-	"strings"
 	"os/exec"
 	"bytes"
 	"fmt"
+	"strings"
+	"io/ioutil"
 	"github.com/chengwenxi/blockchain/iris/test/types"
+	"encoding/json"
 )
 
-func Test_modify(t *testing.T) {
-	path := "C:/Users/vincent/Desktop/"
+func Modify(path string, denom string, amount int64) {
 	bytes, err := ioutil.ReadFile(path + "genesis.json")
 	genesis := types.Genesis{}
 	if err == nil {
@@ -26,7 +24,7 @@ func Test_modify(t *testing.T) {
 	accounts := AccountMap()
 	for _, v := range accounts {
 		if v != account1 {
-			account = append(account, newAccount(v))
+			account = append(account, newAccount(v, denom, amount))
 		}
 	}
 	genesis.App_options.Accounts = account
@@ -36,9 +34,9 @@ func Test_modify(t *testing.T) {
 	}
 }
 
-func newAccount(account string) types.Account {
-	coins := []types.Coin{{"iris", int64(100000)}}
-	return types.Account{account, coins}
+func newAccount(addr string, denom string, amount int64) types.Account {
+	coins := []types.Coin{{denom, amount}}
+	return types.Account{addr, coins}
 }
 
 func AccountMap() map[string]string {
