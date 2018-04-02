@@ -44,3 +44,21 @@ type Result struct {
 	Code  uint32
 	Error string
 }
+
+type Account struct {
+	Address string `json:"address"`
+	Coins   []Coin `json:"coins"`
+}
+
+type Options struct {
+	Accounts       []Account   `json:"accounts"`
+	Plugin_options interface{} `json:"plugin_options"`
+}
+
+type Genesis struct {
+	App_hash     string      `json:"app_hash"`
+	Chain_id     string      `json:"chain_id"`
+	Genesis_time string      `json:"genesis_time"`
+	Validators   interface{} `json:"validators"`
+	App_options  Options     `json:"app_options"`
+}
