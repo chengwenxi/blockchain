@@ -12,11 +12,11 @@ import (
 
 func Modify(path string, denom string, amount int64) {
 	bytes, err := ioutil.ReadFile(path + "genesis.json")
-	genesis := types.Genesis{}
+	config := types.Genesis{}
 	if err == nil {
-		json.Unmarshal(bytes, &genesis)
+		json.Unmarshal(bytes, &config)
 	}
-	account := genesis.App_options.Accounts
+	account := config.App_options.Accounts
 	account1 := ""
 	if len(account) > 0 {
 		account1 = account[0].Address
@@ -27,8 +27,8 @@ func Modify(path string, denom string, amount int64) {
 			account = append(account, newAccount(v, denom, amount))
 		}
 	}
-	genesis.App_options.Accounts = account
-	bytes, err = json.Marshal(genesis)
+	config.App_options.Accounts = account
+	bytes, err = json.Marshal(config)
 	if err == nil {
 		ioutil.WriteFile(path+"genesis.json", bytes, 0644)
 	}

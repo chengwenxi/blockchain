@@ -9,26 +9,28 @@ import (
 	"math/rand"
 	"github.com/chengwenxi/blockchain/iris/test/types"
 	"github.com/chengwenxi/blockchain/iris/test/common"
-	"fmt"
+	"strconv"
 )
 
 var TO = "CAF62CF4258BB500D91C775106AD6419986B2A94"
 var PASSWORD = "1234567890"
 var SERVER = "http://116.62.62.39:1198"
-var SERVERPOST = []string{"http://116.62.62.39:1198", "http://116.62.62.39:1298", "http://116.62.62.39:1398", "http://116.62.62.39:1498"}
+//var SERVERPOSTS = []string{"http://116.62.62.39:1198", "http://116.62.62.39:1298", "http://116.62.62.39:1398", "http://116.62.62.39:1498"}
+var SERVERPOSTS = []string{"http://116.62.62.39:1198"}
 var ch = make(chan int)
 var signCh = make(chan int)
 var l = list.New()
 var lock sync.Mutex
-var goNum = 200
-var goGetNum = 1000
-var minPostTime = int64(0)
+var goNum = 1
+var goGetNum = 10
+var minPostTime = int64(10000000000)
 var maxPostTime = int64(0)
 var successNum = int64(0)
 var totalTime = int64(0)
 
 func Test_PostTx(t *testing.T) {
 	keys := getKeys()
+	keys = keys[0:10]
 	for i := 0; i < goGetNum; i++ {
 		j := len(keys) / goGetNum
 		go buildAndSignTxAll(keys, j*i, j)
@@ -43,10 +45,10 @@ func Test_PostTx(t *testing.T) {
 	for i := 0; i < goNum; i++ {
 		<-ch
 	}
-	fmt.Printf("successNum   %d/n",successNum)
-	fmt.Printf("minPostTime   %d/n",minPostTime)
-	fmt.Printf("maxPostTime   %d/n",maxPostTime)
-	fmt.Printf("avgPostTime   %d/n",totalTime/successNum)
+	println("successNum = ", successNum)
+	println("minPostTime = ", minPostTime)
+	println("maxPostTime = ", maxPostTime)
+	println("avgPostTime = ", totalTime/successNum)
 
 }
 
@@ -63,19 +65,29 @@ func postTx() {
 		ch <- 0
 		return
 	}
-	startTime := time.Now().Unix()
-	body := common.DoPost(SERVERPOST[rand.Intn(3)]+"/tx", data)
+	startTime := time.Now().UnixNano()
+
+	var SERVERPOST string
+	if len(SERVERPOSTS) == 0 {
+		return
+	} else if len(SERVERPOSTS) == 1 {
+		SERVERPOST = SERVERPOSTS[0]
+	} else {
+		SERVERPOST = strconv.Itoa(rand.Intn(len(SERVERPOSTS) - 1))
+	}
+	body := common.DoPost(SERVERPOST+"/tx", data)
+
 	if body == nil {
 		postTx()
 	}
-	endTime := time.Now().Unix()
+	endTime := time.Now().UnixNano()
 	postTime := endTime - startTime
 	totalTime = + postTime
 	if postTime < minPostTime {
 		minPostTime = postTime
 	}
 	if postTime > maxPostTime {
-		minPostTime = postTime
+		maxPostTime = postTime
 	}
 	successNum++
 	//println(string(result))
@@ -85,7 +97,7 @@ func postTx() {
 func getPostTx() []byte {
 	defer lock.Unlock()
 	lock.Lock()
-	i1 := l.Back()
+	i1 := l.Front()
 	var data []byte
 	if i1 != nil {
 		data = i1.Value.([]byte)
